@@ -10,4 +10,9 @@ class DockingStation
   def dock(bike)
     @bikes << bike
   end
+
+  def release(bike)
+    @bikes.delete(bike)
+  end
+
 end
