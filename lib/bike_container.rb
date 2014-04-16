@@ -43,8 +43,21 @@ module BikeContainer
     @bikes = bikes - broken_bikes
   end
 
-  def release_available_bikes
+  def release_fixed_bikes
     @bikes = bikes - available_bikes
   end
+
+  def collect_broken_bikes_from(place)
+    return if self.full?
+    self.dock(place.release_broken_bikes)
+    collect_broken_bikes_from(place)
+  end
+
+  def collect_fixed_bikes_from(place)
+    return if self.full?
+    self.dock(place.release_fixed_bikes)
+    collect_fixed_bikes_from(place)
+  end
+
 
 end

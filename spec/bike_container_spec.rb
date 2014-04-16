@@ -4,7 +4,8 @@ shared_examples BikeContainer do
   
   let(:holder)      { described_class.new          }
   let(:bike)        { double :bike, broken?: false }
-  let(:broken_bike) {double :bike, broken?: true }
+  let(:broken_bike) { double :bike, broken?: true  }
+  let (:place) { double :place, release_broken_bikes: :broken_bike, release_fixed_bikes: :bike }
 
   def fill_holder
     20.times {holder.dock(bike)}
@@ -17,7 +18,7 @@ shared_examples BikeContainer do
   end  
 
   it "should release a bike" do
-    # holder.dock(bike)
+    holder.dock(bike)
     holder.release(bike)
     expect(holder.bike_count).to eq 0
   end
@@ -39,6 +40,11 @@ shared_examples BikeContainer do
     expect(holder.available_bikes.count).to eq 1
   end
 
+  it "should list broken bikes" do
+    holder.dock(bike)
+    2.times {holder.dock(broken_bike)}
+    expect(holder.broken_bikes.count).to eq 2
+  end
 
   it "should be able to release broken bikes" do
     holder.dock(bike)
@@ -50,9 +56,25 @@ shared_examples BikeContainer do
   it "should release fixed bikes" do
     holder.dock(bike)
     2.times {holder.dock(broken_bike)}
-    holder.release_available_bikes
+    holder.release_fixed_bikes
     expect(holder.bike_count).to eq 2
   end
+
+  it "collects all broken bikes up to capacity" do
+    holder.collect_broken_bikes_from(place)
+    expect{holder.dock(place.release_broken_bikes)}.to raise_error(RuntimeError)
+  end
+
+  it "collects all fixed bikes up to a capacity" do
+    holder.collect_fixed_bikes_from(place)
+    expect{holder.dock(place.release_fixed_bikes)}.to raise_error(RuntimeError)
+  end
+
+
+
+
+
+
 
 
 end
