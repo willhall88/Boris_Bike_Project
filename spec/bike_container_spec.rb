@@ -1,11 +1,9 @@
-require_relative "../lib/bike_container.rb"
-
-class ContainerHolder; include BikeContainer; end
+require "bike_container"
 
 shared_examples BikeContainer do
   
-  let(:holder) {ContainerHolder.new}
-  let (:bike) {double :bike}
+  let(:holder) { described_class.new }
+  let(:bike)   { double :bike        }
 
   def fill_holder
     20.times {holder.dock(bike)}
