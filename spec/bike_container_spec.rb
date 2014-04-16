@@ -5,7 +5,7 @@ shared_examples BikeContainer do
   let(:holder)      { described_class.new          }
   let(:bike)        { double :bike, broken?: false }
   let(:broken_bike) { double :bike, broken?: true  }
-  let (:place) { double :place, release_broken_bikes: :broken_bike, release_fixed_bikes: :bike }
+  let (:place) { double :place, broken_bikes: [:broken_bike, :broken_bike], release_broken_bikes: :broken_bike, release_fixed_bikes: :bike, available_bikes: [:bike, :bike] }
 
   def fill_holder
     20.times {holder.dock(bike)}
@@ -62,12 +62,12 @@ shared_examples BikeContainer do
 
   it "collects all broken bikes up to capacity" do
     holder.collect_broken_bikes_from(place)
-    expect{holder.dock(place.release_broken_bikes)}.to raise_error(RuntimeError)
+    expect(holder.bike_count).to eq 2
   end
 
   it "collects all fixed bikes up to a capacity" do
     holder.collect_fixed_bikes_from(place)
-    expect{holder.dock(place.release_fixed_bikes)}.to raise_error(RuntimeError)
+    expect(holder.bike_count).to eq 2
   end
 
 

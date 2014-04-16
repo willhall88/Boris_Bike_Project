@@ -48,15 +48,13 @@ module BikeContainer
   end
 
   def collect_broken_bikes_from(place)
-    return if self.full?
-    self.dock(place.release_broken_bikes)
-    collect_broken_bikes_from(place)
+    place.broken_bikes.each {|bike| self.dock(bike)}
+    place.release_broken_bikes
   end
 
   def collect_fixed_bikes_from(place)
-    return if self.full?
-    self.dock(place.release_fixed_bikes)
-    collect_fixed_bikes_from(place)
+    place.available_bikes.each {|bike| self.dock(bike)}
+    place.release_fixed_bikes
   end
 
 
