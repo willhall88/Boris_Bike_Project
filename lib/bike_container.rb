@@ -40,21 +40,27 @@ module BikeContainer
   end
 
   def release_broken_bikes
-    @bikes = bikes - broken_bikes
+    self.broken_bikes.each {|bike| self.release(bike)}
   end
 
   def release_fixed_bikes
-    @bikes = bikes - available_bikes
+    self.available_bikes.each {|bike| self.release(bike)}
   end
 
   def collect_broken_bikes_from(place)
-    place.broken_bikes.each {|bike| self.dock(bike)}
-    place.release_broken_bikes
+    place.broken_bikes.each do
+      |bike| if !self.full?
+        self.dock(bike) 
+        place.release(bike)
+      end
+    end
   end
 
   def collect_fixed_bikes_from(place)
-    place.available_bikes.each {|bike| self.dock(bike)}
-    place.release_fixed_bikes
+    place.available_bikes.each do
+      |bike| self.dock(bike)
+      place.release_fixed_bikes
+    end
   end
 
 
