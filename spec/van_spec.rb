@@ -13,4 +13,28 @@ describe Van do
     expect{van.dock(station.release_broken_bike)}.to raise_error(RuntimeError)
   end
 
+  # it "releases fixed bikes to station " do
+  #   station = double :station, release_broken_bike: :broken_bike
+
+  #   van.release_fixed_bikes_to(station)
+  #   expect{station.dock(van.release_fixed_bikes)}.to 
+  # end
+
+
+
+
+
+
+
+
+  # it "releases fixed bikes to station" do
+  #   station = double :station, :dock(bike)
+  #   broken_bike    = double :bike, broken?: true
+
+  #   3.times {van.dock(bike)}
+  #   van.release_fixed_bike
+  #   expect
+
+  # end
+
 end
