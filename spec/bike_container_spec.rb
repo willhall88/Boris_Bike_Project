@@ -5,10 +5,10 @@ shared_examples BikeContainer do
   let(:holder)      { described_class.new          }
   let(:bike)        { double :bike, broken?: false }
   let(:broken_bike) { double :bike, broken?: true  }
-  let (:place) { double :place, broken_bikes: [:broken_bike, :broken_bike], release: :bike, release_fixed_bikes: :bike, available_bikes: [:bike, :bike] }
+  let (:place) { double :place, broken_bikes: [:broken_bike, :broken_bike, :broken_bike, :broken_bike], release: :bike, release_fixed_bikes: :bike, available_bikes: [:bike, :bike, :bike, :bike] }
 
   def fill_holder
-    20.times {holder.dock(bike)}
+    3.times {holder.dock(bike)}
   end
 
   it "should accept a bike" do
@@ -62,19 +62,12 @@ shared_examples BikeContainer do
 
   it "collects all broken bikes up to capacity" do
     holder.collect_broken_bikes_from(place)
-    expect(holder.bike_count).to eq 2
+    expect(holder.bike_count).to eq 3
   end
 
   it "collects all fixed bikes up to a capacity" do
     holder.collect_fixed_bikes_from(place)
-    expect(holder.bike_count).to eq 2
+    expect(holder.bike_count).to eq 3
   end
-
-
-
-
-
-
-
 
 end

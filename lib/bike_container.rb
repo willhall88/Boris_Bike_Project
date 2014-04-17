@@ -1,6 +1,6 @@
 module BikeContainer
 
-  DEFAULT_CAPACITY = 20
+  DEFAULT_CAPACITY = 3
 
   def bikes
     @bikes ||= []
@@ -47,6 +47,10 @@ module BikeContainer
     self.available_bikes.each {|bike| self.release(bike)}
   end
 
+  def collect(bikes)
+    
+  end
+
   def collect_broken_bikes_from(place)
     place.broken_bikes.each do
       |bike| if !self.full?
@@ -58,8 +62,10 @@ module BikeContainer
 
   def collect_fixed_bikes_from(place)
     place.available_bikes.each do
-      |bike| self.dock(bike)
-      place.release_fixed_bikes
+      |bike| if !self.full?
+        self.dock(bike)
+        place.release(bike)
+      end
     end
   end
 
