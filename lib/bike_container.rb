@@ -48,8 +48,9 @@ module BikeContainer
   end
 
   def collect(bikes)
-    
+
   end
+
 
   def collect_broken_bikes_from(place)
     place.broken_bikes.each do
