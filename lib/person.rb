@@ -1,3 +1,4 @@
+
 class Person
 
   def initialize(bike = nil)
@@ -8,8 +9,8 @@ class Person
     !@bike.nil?
   end
 
-  def crash(bike)
-    bike.break!
+  def crash
+    @bike.break!
   end
 
   def rent(bike_from, station)
@@ -21,4 +22,5 @@ class Person
     station.dock(bike)
     @bike = nil
   end
+  
 end

@@ -1,12 +1,15 @@
 require "garage"
+require 'bike_container_spec'
 
 describe Garage do
+
   it_behaves_like BikeContainer 
 
   it "should be able to fix broken bikes" do
+    
+    garage = Garage.new
     bike = double :bike, broken?: false
     broken_bike = double :bike, broken?: true
-    garage = Garage.new
 
     garage.dock(bike)
     garage.dock(broken_bike)

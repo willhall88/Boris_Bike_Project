@@ -2,10 +2,10 @@ require "bike_container"
 
 shared_examples BikeContainer do
   
-  let(:holder)      { described_class.new          }
-  let(:bike)        { double :bike, broken?: false }
-  let(:broken_bike) { double :bike, broken?: true  }
-  let (:place) { double :place, broken_bikes: [:broken_bike, :broken_bike, :broken_bike, :broken_bike], release: :bike, release_fixed_bikes: :bike, available_bikes: [:bike, :bike, :bike, :bike] }
+  let (:holder      ) { described_class.new          }
+  let (:bike        ) { double :bike, broken?: false }
+  let (:broken_bike ) { double :bike, broken?: true  }
+  let (:place       ) { double :place, broken_bikes: [:broken_bike, :broken_bike, :broken_bike, :broken_bike], release: :bike, available_bikes: [:bike, :bike, :bike, :bike] }
 
   def fill_holder
     3.times {holder.dock(bike)}
